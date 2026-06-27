@@ -1,0 +1,9 @@
+pyproject.toml
+src/Siamese_net/__init__.py
+src/Siamese_net/loss.py
+src/Siamese_net/model.py
+src/Siamese_net.egg-info/PKG-INFO
+src/Siamese_net.egg-info/SOURCES.txt
+src/Siamese_net.egg-info/dependency_links.txt
+src/Siamese_net.egg-info/requires.txt
+src/Siamese_net.egg-info/top_level.txt
