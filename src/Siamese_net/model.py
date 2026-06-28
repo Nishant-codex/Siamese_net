@@ -36,8 +36,8 @@ class SiameseModel:
 
     def __init__(self,
                 #  spectrum_binner: np.array,
-                 input_dim1: int,
-                 input_dim2: int,
+                 input_dim1: Tuple[int, ...], 
+                 input_dim2: Tuple[int, ...],
                  base_dims: Tuple[int, ...] = (600, 500, 500),
                  embedding_dim: int = 400,
                  dropout_rate: float = 0.5,
@@ -84,7 +84,6 @@ class SiameseModel:
                                                 dropout_in_first_layer=dropout_in_first_layer, l1_reg=l1_reg, l2_reg=l2_reg,base_name='base_a')
                 self.base_b = self.get_base_model(self.input_dim2,base_dims=base_dims, embedding_dim=embedding_dim, dropout_rate=dropout_rate,
                                                 dropout_in_first_layer=dropout_in_first_layer, l1_reg=l1_reg, l2_reg=l2_reg,base_name='base_b')
-
                 # Create head model
                 self.model = self._get_head_model()
 
@@ -112,7 +111,7 @@ class SiameseModel:
             f.attrs['additional_input'] = self.nr_of_additional_inputs
 
     def get_base_model(self,
-                       input_dim:int,
+                       input_dim:Tuple[int, ...],
                        base_dims: Tuple[int, ...] = (600, 500, 500),
                        embedding_dim: int = 400,
                        dropout_rate: float = 0.25,
@@ -183,8 +182,10 @@ class SiameseModel:
         #     embedding_b = self.base([input_b, input_b_2])
         # else:
         if self.seperate_base:
-            embedding_a = self.base_a(input_a)
-            embedding_b = self.base_b(input_b)
+            embedding_a = self.base_a(input_a)[0]
+            embedding_b = self.base_b(input_b)[0]
+
+
             inputs = [input_a, input_b]
 
             cosine_similarity = keras.layers.Dot(axes=(1, 1),
@@ -196,7 +197,6 @@ class SiameseModel:
             embedding_a = self.base(input_a)
             embedding_b = self.base(input_b)
             inputs = [input_a, input_b]
-
             cosine_similarity = keras.layers.Dot(axes=(1, 1),
                                                 normalize=True,
                                                 name="cosine_similarity")([embedding_a, embedding_b])
@@ -253,3 +253,5 @@ class SiameseModel:
 
     def evaluate(self, *args, **kwargs):
         return self.model.evaluate(*args, **kwargs)
+
+

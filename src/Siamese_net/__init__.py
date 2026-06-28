@@ -1,6 +1,5 @@
 
-from .model import (SiameseModel,
-                                   compute_embedding_array, train)
+from .model import (SiameseModel)
 
 
 __all__ = [
