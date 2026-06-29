@@ -2,10 +2,6 @@
 import numpy as np
 
 
-
-
-
-
 def return_shuffled_inds(ind1,ind2):
     SHUFFLED = True
 
