@@ -1,4 +1,4 @@
-# Siamese Net for Ephys Feature Assignment
+# Siamese Net for Ephys Feature Alignment 
 
 This repository provides a TensorFlow/Keras implementation of a Siamese neural network for comparing paired feature representations from the same neurons across different data modalities. The project is designed for experiments on single-cell in-vitro recordings, where feature vectors extracted from two related views are compared through a shared embedding space. 
 
